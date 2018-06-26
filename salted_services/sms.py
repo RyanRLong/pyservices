@@ -1,4 +1,3 @@
-
 """
 Ryan Long
 2018-06-26
@@ -6,6 +5,7 @@ sms.py
 """
 from twilio.rest import Client
 from salted_services.environment import EnvironmentMixin
+
 
 class SmsService(EnvironmentMixin):
     """
@@ -48,13 +48,13 @@ class SmsService(EnvironmentMixin):
         """
         return self.get_environ_variable_value(self._TWILIO_ACCOUNT_ID)
 
-
     def get_twilio_token(self):
         """
         Returns the twilio account token environment variable
         :return: string
         """
         return self.get_environ_variable_value(self._TWILIO_TOKEN)
+
 
 if __name__ == "__main__":
     sms = SmsService()

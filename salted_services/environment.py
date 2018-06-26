@@ -22,7 +22,7 @@ class EnvironmentMixin:
         """
         try:
             return os.environ[name]
-        except KeyError as e:
+        except KeyError:
             print("{} was not found in the environment")
 
     @staticmethod
@@ -35,5 +35,5 @@ class EnvironmentMixin:
         :param value:
         :return:
         """
-        os.environ[name] =  value
+        os.environ[name] = value
         return True
