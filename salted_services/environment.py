@@ -38,6 +38,7 @@ class EnvironmentMixin:
         os.environ[name] = value
         return True
 
+
 class EnvironmentVariableNotFoundError(Exception):
     """
     Exception raised for environment variables that are not defined.
@@ -45,5 +46,6 @@ class EnvironmentVariableNotFoundError(Exception):
     Attributes:
         message = the message containing what variable could not be found
     """
+
     def __init__(self, message):
-            self.message = message
+        self.message = message

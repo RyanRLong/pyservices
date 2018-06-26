@@ -53,11 +53,10 @@ class SmsService(EnvironmentMixin):
         try:
             return self.get_environ_variable_value(self._TWILIO_ACCOUNT_ID)
         except EnvironmentVariableNotFoundError as e:
-            if y == input(e.message + ". Would you like to set it now? (Y)").lower():
+            if 'y' == input(e.message + ". Would you like to set it now? (Y)").lower():
                 self.set_environ_variable_value(self._TWILIO_ACCOUNT_ID, input("Enter value now: "))
                 return self.get_environ_variable_value(self._TWILIO_ACCOUNT_ID)
             exit(2)
-
 
     def get_twilio_token(self):
         """
@@ -71,8 +70,8 @@ class SmsService(EnvironmentMixin):
         try:
             return self.get_environ_variable_value(self._TWILIO_TOKEN)
         except EnvironmentVariableNotFoundError as e:
-            if y == input(e.message + ". Would you like to set it now? (Y)").lower():
-                self.set_environ_variable_value(self._TWILIO_TOKENinput("Enter value now: "))
+            if 'y' == input(e.message + ". Would you like to set it now? (Y)").lower():
+                self.set_environ_variable_value(self._TWILIO_TOKEN, input("Enter value now: "))
                 return self.get_environ_variable_value(self._TWILIO_TOKEN)
             exit(2)
 
