@@ -4,7 +4,7 @@ Ryan Long
 sms.py
 """
 from twilio.rest import Client
-from salted_services.environment import EnvironmentMixin
+from salted_services.environment import EnvironmentMixin, EnvironmentVariableNotFoundError
 
 
 class SmsService(EnvironmentMixin):
@@ -44,16 +44,37 @@ class SmsService(EnvironmentMixin):
     def get_twilio_account_id(self):
         """
         Returns the twilio account id environment variable
+
+        If the Id is not set, the user will be prompted to set it
+        via the command line.
+
         :return: string
         """
-        return self.get_environ_variable_value(self._TWILIO_ACCOUNT_ID)
+        try:
+            return self.get_environ_variable_value(self._TWILIO_ACCOUNT_ID)
+        except EnvironmentVariableNotFoundError as e:
+            if y == input(e.message + ". Would you like to set it now? (Y)").lower():
+                self.set_environ_variable_value(self._TWILIO_ACCOUNT_ID, input("Enter value now: "))
+                return self.get_environ_variable_value(self._TWILIO_ACCOUNT_ID)
+            exit(2)
+
 
     def get_twilio_token(self):
         """
         Returns the twilio account token environment variable
+
+        If the Id is not set, the user will be prompted to set it
+        via the command line.
+
         :return: string
         """
-        return self.get_environ_variable_value(self._TWILIO_TOKEN)
+        try:
+            return self.get_environ_variable_value(self._TWILIO_TOKEN)
+        except EnvironmentVariableNotFoundError as e:
+            if y == input(e.message + ". Would you like to set it now? (Y)").lower():
+                self.set_environ_variable_value(self._TWILIO_TOKENinput("Enter value now: "))
+                return self.get_environ_variable_value(self._TWILIO_TOKEN)
+            exit(2)
 
 
 if __name__ == "__main__":

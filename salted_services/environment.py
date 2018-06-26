@@ -23,7 +23,7 @@ class EnvironmentMixin:
         try:
             return os.environ[name]
         except KeyError:
-            print("{} was not found in the environment")
+            raise EnvironmentVariableNotFoundError("Could not find environement variable {}".format(name))
 
     @staticmethod
     def set_environ_variable_value(name, value):
@@ -37,3 +37,13 @@ class EnvironmentMixin:
         """
         os.environ[name] = value
         return True
+
+class EnvironmentVariableNotFoundError(Exception):
+    """
+    Exception raised for environment variables that are not defined.
+
+    Attributes:
+        message = the message containing what variable could not be found
+    """
+    def __init__(self, message):
+            self.message = message
