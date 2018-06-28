@@ -35,7 +35,7 @@ class EnvironmentMixin:
         :param value:
         :return:
         """
-        os.environ[name] = value
+        os.environ[name] = str(value)
         return True
 
 
