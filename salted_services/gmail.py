@@ -1,8 +1,16 @@
+"""
+Ryan Long
+2018-07-08
+gmail.py
+"""
 import smtplib
 from environment import EnvironmentMixin, EnvironmentVariableNotFoundError
 
 
 class Gmail:
+    """
+    Coordinates with gmail to send emails
+    """
     gmail_username = 'GMAIL_USERNAME'
     gmail_password = 'GMAIL_PASSWORD'
 
@@ -11,6 +19,14 @@ class Gmail:
         self.password = self.get_password()
 
     def sendmail(self, recipients, subject, body):
+        """
+        Send text mail to the recipient
+
+        :param recipients: list of recipients
+        :param subject:
+        :param body:
+        :return: boolean
+        """
         smtp_server = smtplib.SMTP('smtp.gmail.com, 587')
         smtp_server.ehlo()
         smtp_server.starttls()
@@ -21,21 +37,25 @@ class Gmail:
         return True
 
     def get_username(self):
+        """
+        Get username from the environment
+        :return: string
+        """
         try:
             return EnvironmentMixin.get_environ_variable_value(self.gmail_username)
         except EnvironmentVariableNotFoundError:
             username = input("Username not set.  Set now: ")
-            if username is not None:
-                EnvironmentMixin.set_environ_variable_value(self.gmail_username, username)
             return username
 
     def get_password(self):
+        """
+        Get password from environment
+        :return:
+        """
         try:
             return EnvironmentMixin.get_environ_variable_value(self.gmail_password)
         except EnvironmentVariableNotFoundError:
             password = input("Password not set.  Set now: ")
-            if password is not None:
-                EnvironmentMixin.set_environ_variable_value(self.gmail_password, password)
             return password
 
 
